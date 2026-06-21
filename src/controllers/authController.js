@@ -6,9 +6,9 @@ const apiResponse = require("../utils/apiResponse");
 const { createToken } = require("../services/tokenService");
 const { ROLE } = require("../utils/roles");
 
-const ADMIN_EMAIL = "omkarkardel175@gmail.com";
-const ADMIN_PASSWORD = "123456";
-const ADMIN_NAME = "CampusHub Admin";
+const ADMIN_EMAIL = process.env.ADMIN_EMAIL;
+const ADMIN_PASSWORD = process.env.ADMIN_PASSWORD;
+const ADMIN_NAME = process.env.ADMIN_NAME || "CampusHub Admin";
 
 const signup = asyncHandler(async (req, res, next) => {
   const { name, email, password, interests = [], skills = [] } = req.body;

@@ -11,7 +11,9 @@ const bootstrap = async () => {
   await connectDatabase();
 
   const server = http.createServer(app);
-  initializeSocketServer(server);
+  if (!process.env.VERCEL) {
+    initializeSocketServer(server);
+  }
 
   server.listen(PORT, () => {
     console.log(`CampusHub API running on port ${PORT}`);

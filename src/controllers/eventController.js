@@ -231,12 +231,17 @@ const addGalleryImage = asyncHandler(async (req, res, next) => {
     return next(new ApiError(404, "Event not found"));
   }
 
-  if (!req.file) {
-    return next(new ApiError(400, "Image is required"));
+  const imageUrl = typeof req.body.imageUrl === "string" ? req.body.imageUrl.trim() : "";
+
+  if (!imageUrl) {
+    return next(new ApiError(400, "Image URL is required"));
   }
 
-  const imagePath = `/uploads/${req.file.filename}`;
-  event.gallery.push(imagePath);
+  if (!/^https?:\/\//i.test(imageUrl)) {
+    return next(new ApiError(400, "Image URL must be an absolute URL"));
+  }
+
+  event.gallery.push(imageUrl);
   await event.save();
 
   return res.json(apiResponse({ gallery: event.gallery }, "Gallery image added"));

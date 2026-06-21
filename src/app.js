@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
-const path = require("path");
 
 require("dotenv").config();
 
@@ -20,7 +19,6 @@ app.use(
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(passport.initialize());
-app.use("/uploads", express.static(path.join(process.cwd(), "uploads")));
 
 app.get("/", (_req, res) => {
   res.json({ success: true, message: "CampusHub API is live" });

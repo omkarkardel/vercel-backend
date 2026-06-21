@@ -12,9 +12,6 @@ const {
 } = require("../controllers/eventController");
 const { authenticate, authorize } = require("../middleware/auth");
 const { ROLE } = require("../utils/roles");
-const multer = require("multer");
-
-const upload = multer({ dest: "uploads/" });
 
 const router = express.Router();
 
@@ -26,12 +23,6 @@ router.post("/", authenticate, authorize(ROLE.CLUB_ADMIN, ROLE.SUPER_ADMIN), cre
 router.post("/:eventId/rsvp", authenticate, authorize(ROLE.STUDENT, ROLE.CLUB_ADMIN), rsvpEvent);
 router.patch("/:eventId", authenticate, authorize(ROLE.CLUB_ADMIN, ROLE.SUPER_ADMIN), updateEvent);
 router.delete("/:eventId", authenticate, authorize(ROLE.CLUB_ADMIN, ROLE.SUPER_ADMIN), deleteEvent);
-router.post(
-  "/:eventId/gallery",
-  authenticate,
-  authorize(ROLE.CLUB_ADMIN, ROLE.SUPER_ADMIN),
-  upload.single("image"),
-  addGalleryImage
-);
+router.post("/:eventId/gallery", authenticate, authorize(ROLE.CLUB_ADMIN, ROLE.SUPER_ADMIN), addGalleryImage);
 
 module.exports = router;

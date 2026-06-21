@@ -3,6 +3,10 @@ let io;
 const connectedUsers = new Map();
 
 const initializeSocketServer = (server) => {
+  if (process.env.VERCEL) {
+    return null;
+  }
+
   const { Server } = require("socket.io");
 
   io = new Server(server, {
