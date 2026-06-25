@@ -1,7 +1,6 @@
 const http = require("http");
 const app = require("./src/app");
 const connectDatabase = require("./src/config/database");
-const initializeSocketServer = require("./src/services/socketService");
 
 require("dotenv").config();
 
@@ -11,9 +10,6 @@ const bootstrap = async () => {
   await connectDatabase();
 
   const server = http.createServer(app);
-  if (!process.env.VERCEL) {
-    initializeSocketServer(server);
-  }
 
   server.listen(PORT, () => {
     console.log(`CampusHub API running on port ${PORT}`);
@@ -21,3 +17,4 @@ const bootstrap = async () => {
 };
 
 bootstrap();
+
