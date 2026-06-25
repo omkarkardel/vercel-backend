@@ -3,6 +3,8 @@ const mongoose = require("mongoose");
 const connectDatabase = async () => {
   const dbUri = process.env.DATABASE_URL;
 
+  console.log("DATABASE_URL exists:", !!dbUri);
+
   if (!dbUri) {
     throw new Error("DATABASE_URL is not configured");
   }
